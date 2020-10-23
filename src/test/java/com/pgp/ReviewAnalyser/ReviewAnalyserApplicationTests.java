@@ -11,7 +11,7 @@ class ReviewAnalyserApplicationTests
 	@Test
         public void testWordCount()
         {
-   	 assertEquals(7,analyser.getWordCount("Train to win in the digital economy"));
+   	 assertEquals(7,analyser.getWordCount("Train to win in the digital economy"),0.0);
 	}
 
 }
