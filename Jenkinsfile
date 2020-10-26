@@ -1,18 +1,24 @@
-pipeline {	 
-    agent any	 
-	 stages {	 
-	 stage("Compile") {	 
-			 steps {	 
-				 sh "mvn compile"	 
-			 }	 
-		 }	 
-	 stage("Unit test") {	 
-		 steps {	 
-				 sh "mvn test"	 
-			 }	 
-		 }	 
-	 }
-
+pipeline 
+{
+	agent none
+	stages {
+		stage('Compile') {
+			agent {
+				label 'Slave1'
+				 }
+			steps {
+				 sh "mvn compile"
+				 }
+						}
+		stage('Unit Test') {
+			agent {
+				label 'Slave2'
+				 }
+			steps {
+				 sh "mvn test"
+				  }
+							}
+			}
 	post {
 	 always {
 	 step([$class: 'JacocoPublisher',
@@ -22,6 +28,5 @@ pipeline {
 		exclusionPattern: 'src/test*'
 	 ])
 	 }   
-	}
+	}		
 }
-
